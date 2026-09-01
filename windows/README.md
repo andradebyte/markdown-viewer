@@ -32,6 +32,17 @@ powershell -ExecutionPolicy Bypass -File download-webview2.ps1
 
 This produces `mdview.exe`. `WebView2Loader.dll` must sit next to the exe.
 
+## Windows installer
+
+To build a `Setup.exe` (Inno Setup) with Start Menu / desktop shortcuts and `.md`/`.txt` file association:
+
+1. Install Inno Setup (e.g. `choco install innosetup -y`)
+2. `& "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" installer.iss`
+
+Output: `mdview-setup-1.0.0.exe` in the project root. The installer checks for the WebView2 Runtime and offers to download it if missing.
+
+The GitHub Actions release workflow (`release.yml`) builds the `.deb`, a portable zip **and** the installer automatically on every `v*` tag.
+
 ## Running
 
 ```powershell
