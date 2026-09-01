@@ -785,7 +785,10 @@ static void on_toggle_edit(GtkWidget *btn, App *app) {
         update_edit_button(app);
     } else {
         gchar *text = editor_get_text(t);
-        if (t->source) g_string_assign(t->source, text);
+        if (t->source)
+            g_string_assign(t->source, text);
+        else
+            t->source = g_string_new(text);
         g_free(text);
         t->editing = FALSE;
         gtk_stack_set_visible_child(GTK_STACK(t->stack), GTK_WIDGET(t->webview));
