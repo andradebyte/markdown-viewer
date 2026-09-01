@@ -58,6 +58,7 @@ jobs:
         run: powershell -ExecutionPolicy Bypass -File download-webview2.ps1
 
       - name: Build mdview.exe
+        working-directory: windows
         run: ./build-mingw.sh
 
       - name: Package (portable zip)
