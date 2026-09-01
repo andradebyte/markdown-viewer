@@ -62,10 +62,12 @@ begin
 end;
 
 function NextButtonClick(CurPageID: Integer): Boolean;
+var
+  Err: Integer;
 begin
   Result := True;
   if (CurPageID = wpReady) and (not IsWebView2Installed) then
     if MsgBox('WebView2 Runtime is required for the preview. Install it now?',
       mbConfirmation, MB_YESNO) = IDYES then
-      ShellExec('open', EvergreenUrl, '', '', SW_SHOW, ewNoWait, nil);
+      ShellExec('open', EvergreenUrl, '', '', SW_SHOW, ewNoWait, Err);
 end;
