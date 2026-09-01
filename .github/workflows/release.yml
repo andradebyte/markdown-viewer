@@ -86,9 +86,29 @@ jobs:
           name: windows-x64
           path: mdview-windows-x64.zip
 
+  fedora:
+    name: Fedora (RPM)
+    runs-on: ubuntu-latest
+    container:
+      image: fedora:latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          dnf install -y git gcc make pkgconfig gtk3-devel webkit2gtk4.1-devel rpm-build
+
+      - name: Build RPM
+        run: ./packaging/fedora/build-rpm.sh
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: fedora-rpm
+          path: mdview-*.x86_64.rpm
+
   release:
     name: Publish release
-    needs: [linux, windows]
+    needs: [linux, windows, fedora]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/download-artifact@v4
