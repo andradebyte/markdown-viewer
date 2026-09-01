@@ -2,7 +2,9 @@
 ; Compile with: ISCC.exe installer.iss   (from the windows/ folder)
 
 #define MyAppName "Markdown Viewer"
-#define MyAppVersion "1.0.0"
+#ifndef MyAppVersion
+  #define MyAppVersion "1.0.0"
+#endif
 #define MyAppExeName "mdview.exe"
 #define MyAppPublisher "andradebyte"
 
