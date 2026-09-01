@@ -9,12 +9,14 @@ Write-Host "Downloading WebView2 SDK $ver ..."
 Invoke-WebRequest -Uri $url -OutFile "webview2.nupkg"
 
 Write-Host "Extracting ..."
-Expand-Archive "webview2.nupkg" -DestinationPath "webview2pkg"
+Copy-Item "webview2.nupkg" "webview2.zip" -Force
+Expand-Archive "webview2.zip" -DestinationPath "webview2pkg" -Force
 
 Copy-Item "webview2pkg/build/native/include/WebView2.h" "WebView2.h" -Force
 Copy-Item "webview2pkg/runtimes/win-x64/native/WebView2Loader.dll" "WebView2Loader.dll" -Force
 
 Remove-Item "webview2.nupkg" -Recurse
+Remove-Item "webview2.zip" -Recurse
 Remove-Item "webview2pkg" -Recurse
 
 Write-Host "OK: WebView2.h e WebView2Loader.dll prontos."
