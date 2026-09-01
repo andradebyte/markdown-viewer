@@ -1,7 +1,7 @@
 CC ?= gcc
 PKGS = gtk+-3.0 webkit2gtk-4.1
 CFLAGS ?= -O2 -Wall
-CFLAGS += $(shell pkg-config --cflags $(PKGS))
+override CFLAGS += $(shell pkg-config --cflags $(PKGS))
 LIBS = $(shell pkg-config --libs $(PKGS))
 
 all: mdview
