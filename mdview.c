@@ -778,7 +778,12 @@ static void on_toggle_edit(GtkWidget *btn, App *app) {
     Tab *t = app->current;
     if (!t) return;
     if (!t->editing) {
-        gtk_text_buffer_set_text(gtk_text_view_get_buffer(t->editor), t->source ? t->source->str : "", -1);
+        gchar *cur = editor_get_text(t);
+        gboolean same = t->source && g_strcmp0(cur, t->source->str) == 0;
+        if (!same)
+            gtk_text_buffer_set_text(gtk_text_view_get_buffer(t->editor),
+                                     t->source ? t->source->str : "", -1);
+        g_free(cur);
         t->editing = TRUE;
         gtk_stack_set_visible_child(GTK_STACK(t->stack), t->editor_scroll);
         gtk_widget_grab_focus(GTK_WIDGET(t->editor));
