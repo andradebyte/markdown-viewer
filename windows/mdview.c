@@ -11,8 +11,12 @@
  *   # produces mdview.exe (WebView2Loader.dll must sit next to it)
  *   # needs the WebView2 Runtime: preinstalled on Windows 11 / Edge systems
  */
+#ifndef UNICODE
 #define UNICODE
+#endif
+#ifndef _UNICODE
 #define _UNICODE
+#endif
 #define WIN32_LEAN_AND_MEAN
 
 #include <windows.h>
@@ -474,7 +478,7 @@ static TabWin *new_tab(const WCHAR *path) {
 
     if (g_tab_count == g_tab_cap) {
         g_tab_cap = g_tab_cap ? g_tab_cap * 2 : 8;
-        g_tabs = g_renew(g_tabs, TabWin *, g_tab_cap);
+        g_tabs = (TabWin **)g_realloc(g_tabs, (size_t)g_tab_cap * sizeof(TabWin *));
     }
     g_tabs[g_tab_count++] = t;
 
