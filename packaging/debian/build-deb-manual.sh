@@ -5,7 +5,13 @@
 set -euo pipefail
 
 cd "$(dirname "$0")/../.."   # project root
-VER="1.0.0"
+# Version comes from $VERSION (e.g. "1.1.1") or the latest git tag, default 1.0.0.
+if [[ "${VERSION:-}" =~ ^v?[0-9]+\.[0-9]+\.[0-9]+ ]]; then
+    VER="${VERSION#v}"
+else
+    VER="$(git describe --tags --abbrev=0 2>/dev/null | sed 's/^v//')"
+fi
+VER="${VER:-1.0.0}"
 ARCH="$(dpkg --print-architecture 2>/dev/null || uname -m)"
 [ "$ARCH" = "x86_64" ] && ARCH="amd64"
 [ "$ARCH" = "aarch64" ] && ARCH="arm64"

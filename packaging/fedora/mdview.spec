@@ -1,7 +1,8 @@
 Name:           mdview
-Version:        1.0.0
+Version:        %{mdview_version}
 Release:        1%{?dist}
 Summary:        Lightweight Markdown viewer/editor
+%{!?mdview_version:%define mdview_version 1.0.0}
 %define debug_package %{nil}
 
 License:        MIT

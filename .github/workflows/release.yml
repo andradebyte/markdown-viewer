@@ -9,6 +9,9 @@ on:
 permissions:
   contents: write
 
+env:
+  VERSION: ${{ github.ref_name }}
+
 jobs:
   linux:
     name: Linux (.deb)
@@ -64,7 +67,8 @@ jobs:
       - name: Package (portable zip)
         shell: powershell
         run: |
-          Compress-Archive -Path windows/mdview.exe, windows/WebView2Loader.dll -DestinationPath mdview-windows-x64.zip
+          $ver = $env:VERSION.TrimStart('v')
+          Compress-Archive -Path windows/mdview.exe, windows/WebView2Loader.dll -DestinationPath "mdview-$ver-windows-x64.zip"
 
       - name: Install Inno Setup
         shell: powershell
@@ -74,7 +78,8 @@ jobs:
         shell: powershell
         working-directory: windows
         run: |
-          & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" installer.iss
+          $ver = $env:VERSION.TrimStart('v')
+          & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" /DMyAppVersion=$ver installer.iss
 
       - uses: actions/upload-artifact@v4
         with:
@@ -84,7 +89,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: windows-x64
-          path: mdview-windows-x64.zip
+          path: mdview-*-windows-x64.zip
 
   fedora:
     name: Fedora (RPM)
