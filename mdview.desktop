@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Markdown Viewer
+Comment=View and edit Markdown and text files
+Exec=/home/joaoigorandrade/.local/bin/mdview %f
+Icon=mdview
+Terminal=false
+Categories=Utility;TextEditor;Viewer;
+Keywords=markdown;md;viewer;text;
+MimeType=text/markdown;text/x-markdown;text/plain;
+StartupNotify=true

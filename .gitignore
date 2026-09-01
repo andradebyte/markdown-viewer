@@ -1,0 +1,6 @@
+mdview
+mdview_*.deb
+*.o
+*.exe
+WebView2.h
+WebView2Loader.dll
